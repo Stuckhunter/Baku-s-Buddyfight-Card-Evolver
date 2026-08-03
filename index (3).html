@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baku's Buddyfight Card Evolver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Fredoka:wght@600&family=Orbitron:wght@700&family=Press+Start+2P&family=Russo+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body id="gameBody" class="theme-1">
+
+  <div class="ambient-orb orb-1"></div>
+  <div class="ambient-orb orb-2"></div>
+
+  <div class="game-container">
+    <header class="topbar">
+      <h1>Baku's Buddyfight Card Evolver</h1>
+      <div class="stats">
+        <span>Level: <strong id="levelDisplay">1</strong> / 5</span>
+        <span>Theme: <strong id="themeDisplay">Cyber Neon</strong></span>
+        <span>Total Clicks: <strong id="totalClicksDisplay">0</strong></span>
+      </div>
+    </header>
+
+    <div class="progress-section">
+      <div class="progress-info">
+        <span>Level Progress</span>
+        <span><strong id="clicksDisplay">0</strong> / 50 Clicks</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div id="progressBar" class="progress-bar-fill"></div>
+      </div>
+      <div id="phaseIndicator" class="phase-indicator">Stage 1: Clicks 0–9</div>
+    </div>
+
+    <main class="card-stage">
+      <div id="mainCard" class="interactive-card">
+        <div class="card-inner">
+          <img id="cardImage" src="" alt="Card Face" />
+        </div>
+      </div>
+    </main>
+
+    <div class="controls">
+      <button id="restartBtn">Restart Level</button>
+      <button id="nextBtn" disabled>Next Level</button>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

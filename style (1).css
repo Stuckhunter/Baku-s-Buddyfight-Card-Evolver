@@ -1,0 +1,264 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.8s ease, color 0.5s ease;
+}
+
+/* ===================================================
+   BACKGROUND THEMES & LEVEL FONT CHANGES
+   =================================================== */
+
+/* Theme 1: Cyber Neon (Orbitron Font) */
+body.theme-1 {
+  background: #080a12;
+  color: #00f0ff;
+  font-family: 'Orbitron', sans-serif;
+}
+body.theme-1 .orb-1 { background: #00f0ff; top: 10%; left: 15%; width: 300px; height: 300px; }
+body.theme-1 .orb-2 { background: #ff007f; bottom: 10%; right: 15%; width: 350px; height: 350px; }
+
+/* Theme 2: Kaleidoscope (Cinzel Font) */
+body.theme-2 {
+  background: radial-gradient(circle at 50% 50%, #2b0836 0%, #0d021a 100%);
+  color: #ffd700;
+  font-family: 'Cinzel', serif;
+}
+body.theme-2 .orb-1 { background: #ff0055; top: 5%; left: 10%; width: 400px; height: 400px; }
+body.theme-2 .orb-2 { background: #00e5ff; bottom: 5%; right: 10%; width: 400px; height: 400px; }
+
+/* Theme 3: Liquid Glass (Fredoka Font) */
+body.theme-3 {
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+  color: #38bdf8;
+  font-family: 'Fredoka', cursive;
+}
+body.theme-3 .orb-1 { background: #38bdf8; top: 20%; left: 20%; width: 320px; height: 320px; }
+body.theme-3 .orb-2 { background: #818cf8; bottom: 15%; right: 20%; width: 320px; height: 320px; }
+
+/* Theme 4: Retro Pixel (Press Start 2P Font) */
+body.theme-4 {
+  background: #030712;
+  color: #4ade80;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.85rem;
+}
+body.theme-4 .orb-1 { background: #10b981; top: 15%; left: 25%; width: 380px; height: 380px; }
+body.theme-4 .orb-2 { background: #a855f7; bottom: 15%; right: 25%; width: 380px; height: 380px; }
+
+/* Theme 5: Prism Heavy (Russo One Font) */
+body.theme-5 {
+  background: #12080a;
+  color: #fbbf24;
+  font-family: 'Russo One', sans-serif;
+}
+body.theme-5 .orb-1 { background: #f59e0b; top: 10%; right: 20%; width: 350px; height: 350px; }
+body.theme-5 .orb-2 { background: #ef4444; bottom: 10%; left: 20%; width: 350px; height: 350px; }
+
+/* Ambient background light orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.45;
+  pointer-events: none;
+  transition: all 1s ease;
+  z-index: 0;
+}
+
+/* ===================================================
+   GLASS CONTAINER & UI
+   =================================================== */
+
+.game-container {
+  position: relative;
+  z-index: 1;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 24px;
+  padding: 30px;
+  max-width: 480px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.topbar h1 {
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 12px 16px;
+  border-radius: 12px;
+  margin-bottom: 22px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Progress Tracker */
+.progress-section {
+  margin-bottom: 24px;
+}
+
+.progress-info {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 14px;
+  background: rgba(0, 0, 0, 0.45);
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.progress-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #38bdf8, #c084fc);
+  transition: width 0.25s ease;
+  border-radius: 20px;
+}
+
+.phase-indicator {
+  margin-top: 10px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+/* ===================================================
+   CARD STAGE & 3D ANIMATIONS
+   =================================================== */
+
+.card-stage {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 24px;
+  perspective: 1000px;
+}
+
+.interactive-card {
+  width: 220px;
+  height: 280px;
+  border-radius: 18px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: transform 0.1s ease;
+}
+
+.interactive-card:active {
+  transform: scale(0.95);
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  background: #0f172a;
+}
+
+.card-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 3D Spin Swap Effect */
+@keyframes spin3D {
+  0% { transform: rotateY(0deg) scale(1); }
+  50% { transform: rotateY(180deg) scale(0.7); }
+  100% { transform: rotateY(360deg) scale(1); }
+}
+
+.interactive-card.spin-swap {
+  animation: spin3D 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Sparkle Particle Styling */
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #00f0ff;
+  pointer-events: none;
+  animation: sparkleBurst 0.6s ease-out forwards;
+  z-index: 100;
+}
+
+@keyframes sparkleBurst {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--dx), var(--dy)) scale(0.1);
+  }
+}
+
+/* Control Buttons */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+button {
+  font-family: inherit;
+  background: linear-gradient(135deg, #0284c7, #9333ea);
+  color: #ffffff;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+}
+
+button:disabled {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.25);
+  cursor: not-allowed;
+  box-shadow: none;
+}
